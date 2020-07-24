@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NetworkApp.API.Data;
 
 namespace NetworkApp.API
@@ -28,6 +27,7 @@ namespace NetworkApp.API
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+      services.AddCors();
       services.AddDbContext<DataContext>(ops => ops.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
     }
 
@@ -38,6 +38,8 @@ namespace NetworkApp.API
       {
         app.UseDeveloperExceptionPage();
       }
+
+      app.UseCors(ops => ops.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
       app.UseHttpsRedirection();
 
