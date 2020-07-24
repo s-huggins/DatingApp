@@ -5,3 +5,6 @@ x64/
 [Oo]bj/
 .vscode/
 .prettierrc
+*.db
+*.db-shm
+*.db-wal
