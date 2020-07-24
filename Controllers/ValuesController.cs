@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetworkApp.API.Data;
@@ -9,6 +10,7 @@ using NetworkApp.API.Data;
 namespace NetworkApp.API.Controllers
 {
   [ApiController]
+  [Authorize]
   [Route("api/[controller]")]
   public class ValuesController : ControllerBase
   {
@@ -26,8 +28,8 @@ namespace NetworkApp.API.Controllers
       return Ok(values);
     }
 
-    [Route("{id}")]
-    [HttpGet]
+    [AllowAnonymous]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetValue(int id)
     {
       var value = await _context.Values.FirstOrDefaultAsync(v => v.Id == id);
