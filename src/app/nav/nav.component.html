@@ -1,9 +1,15 @@
 <nav class="navbar">
   <ul class="navbar-nav">
     <li class="nav-brand"><a href="#">Networking</a></li>
-    <li class="nav-item"><a class="nav-link" href="#">Matches</a></li>
-    <li class="nav-item"><a class="nav-link" href="#">Lists</a></li>
-    <li class="nav-item"><a class="nav-link" href="#">Messages</a></li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" *ngIf="loggedIn">Matches</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" *ngIf="loggedIn">Lists</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" *ngIf="loggedIn">Messages</a>
+    </li>
   </ul>
   <form
     class="nav-register"
@@ -33,10 +39,12 @@
     </button>
   </form>
   <ul class="nav-user" *ngIf="loggedIn">
-    <li class="nav-dropdown-toggler nav-dropdown-link">
-      Welcome User! <span class="caret-down">▼</span>
+    <li class="nav-dropdown-toggler nav-dropdown-link" appDropdown>
+      {{ userName }}
+      <span class="caret-down">▼</span>
       <ul class="nav-user-dropdown">
         <li><a href="#" class="nav-link nav-dropdown-link">Edit Profile</a></li>
+        <li role="separator" class="divider"></li>
         <li>
           <a href="#" class="nav-link nav-dropdown-link" (click)="logout()"
             >Logout</a

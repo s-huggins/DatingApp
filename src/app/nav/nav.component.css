@@ -80,21 +80,27 @@
   width: 150px;
 }
 
+.nav-dropdown-toggler.dropdown-visible .nav-user-dropdown {
+  display: block;
+}
+
 .nav-dropdown-link {
   color: white;
 }
 
 .nav-user-dropdown {
   position: absolute;
+  display: none;
   list-style-type: none;
   background-color: teal;
   width: 100%;
-  /* border: 1px solid red; */
   padding-top: 0;
   padding: 10px;
   margin-top: -2px;
-
-  /* display: none; */
 }
 
-/* .nav-user li */
+.divider {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  display: block;
+  padding: 2px 0;
+}
