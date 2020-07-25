@@ -1,0 +1,14 @@
+<div class="lead" *ngIf="!registerMode">
+  <h1>Find your match!</h1>
+  <p class="lead-text">
+    Come on in to view your matches. All you need to do is sign up!
+  </p>
+  <div>
+    <button class="btn" (click)="registerToggle()">Register</button>
+    <button class="btn">Login</button>
+  </div>
+</div>
+
+<div *ngIf="registerMode">
+  <app-register (cancelRegister)="setRegisterMode(false)"></app-register>
+</div>

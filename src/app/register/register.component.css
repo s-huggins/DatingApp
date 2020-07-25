@@ -1,0 +1,32 @@
+.register-form {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 1px 8px;
+  color: white;
+  background-color: teal;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 1rem;
+}
+
+.btn-cancel {
+  background-color: rgb(105, 113, 113);
+}
+
+.control {
+  font-size: 1.1rem;
+  padding: 5px;
+  width: 75%;
+  margin: 5px 0;
+}
+
+.control-username {
+  margin-top: 20px;
+}
