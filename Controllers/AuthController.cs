@@ -28,14 +28,18 @@ namespace NetworkApp.API.Controllers
     public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
     {
       // store username as lowercase
-      userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+      if (!String.IsNullOrEmpty(userForRegisterDto.Username))
+        userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
       if (await _repo.UserExists(userForRegisterDto.Username))
-        ModelState.AddModelError("Username", "Username is taken");
-
-      // validate request
-      if (!ModelState.IsValid)
-        return BadRequest(ModelState);
+      {
+        return BadRequest(
+          new
+          {
+            errors = new { Username = new string[] { "Username is taken" } }
+          }
+        );
+      }
 
       var userToCreate = new User
       {
