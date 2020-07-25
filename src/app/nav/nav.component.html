@@ -1,14 +1,34 @@
 <nav class="navbar">
   <ul class="navbar-nav">
-    <li class="nav-brand"><a href="#">Networking</a></li>
-    <li class="nav-item">
-      <a class="nav-link" href="#" *ngIf="loggedIn">Matches</a>
+    <li class="nav-brand">
+      <a [routerLink]="['/home']">Networking</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" *ngIf="loggedIn">Lists</a>
+      <a
+        class="nav-link"
+        [routerLink]="['/members']"
+        routerLinkActive="nav-link-active"
+        *ngIf="loggedIn"
+        >Matches</a
+      >
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" *ngIf="loggedIn">Messages</a>
+      <a
+        class="nav-link"
+        [routerLink]="['/lists']"
+        routerLinkActive="nav-link-active"
+        *ngIf="loggedIn"
+        >Lists</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [routerLink]="['/messages']"
+        routerLinkActive="nav-link-active"
+        *ngIf="loggedIn"
+        >Messages</a
+      >
     </li>
   </ul>
   <form
@@ -39,15 +59,19 @@
     </button>
   </form>
   <ul class="nav-user" *ngIf="loggedIn">
-    <li class="nav-dropdown-toggler nav-dropdown-link" appDropdown>
+    <li class="nav-dropdown-toggler" appDropdown>
       {{ userName }}
       <span class="caret-down">▼</span>
       <ul class="nav-user-dropdown">
-        <li><a href="#" class="nav-link nav-dropdown-link">Edit Profile</a></li>
+        <li>
+          <a href="#" class="nav-link nav-dropdown-link"
+            ><fa-icon class="icon" [icon]="faUser"></fa-icon> Edit Profile</a
+          >
+        </li>
         <li role="separator" class="divider"></li>
         <li>
-          <a href="#" class="nav-link nav-dropdown-link" (click)="logout()"
-            >Logout</a
+          <a class="nav-link nav-dropdown-link" (click)="logout()">
+            <fa-icon class="icon" [icon]="faSignOutAlt"></fa-icon>Logout</a
           >
         </li>
       </ul>

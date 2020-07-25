@@ -30,7 +30,6 @@ export class AuthService {
             this.userToken = res.token;
             localStorage.setItem('token', res.token);
             this.decodedToken = this.jwtHelper.decodeToken();
-            console.log(this.decodedToken);
           }
         }),
         catchError(this.handleError)

@@ -86,6 +86,16 @@
 
 .nav-dropdown-link {
   color: white;
+  display: block;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+}
+.nav-dropdown-link:hover {
+  background-color: rgb(48, 159, 159);
+}
+
+.icon {
+  margin-right: 8px;
 }
 
 .nav-user-dropdown {
@@ -95,12 +105,15 @@
   background-color: teal;
   width: 100%;
   padding-top: 0;
-  padding: 10px;
-  margin-top: -2px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 
 .divider {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   display: block;
-  padding: 2px 0;
+  width: 90%;
+  margin: 0 auto;
+  /* padding: 2px 0; */
 }
