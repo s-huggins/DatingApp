@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -33,10 +34,16 @@ namespace NetworkApp.API
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddControllers();
+      services.AddControllers().AddNewtonsoftJson(ops =>
+      {
+        ops.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+      });
       services.AddCors();
+      services.AddAutoMapper(typeof(Startup));
       services.AddDbContext<DataContext>(ops => ops.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+      services.AddTransient<Seed>();
       services.AddScoped<IAuthRepository, AuthRepository>();
+      services.AddScoped<IDatingRepository, DatingRepository>();
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(ops =>
         {
@@ -51,7 +58,7 @@ namespace NetworkApp.API
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
     {
       if (env.IsDevelopment())
       {
@@ -77,7 +84,6 @@ namespace NetworkApp.API
 
       app.UseCors(ops => ops.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
-
       app.UseHttpsRedirection();
 
       app.UseRouting();
@@ -85,6 +91,8 @@ namespace NetworkApp.API
       app.UseAuthentication();
 
       app.UseAuthorization();
+
+      // seeder.SeedUsers();
 
       app.UseEndpoints(endpoints =>
       {
