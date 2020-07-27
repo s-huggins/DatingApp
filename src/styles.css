@@ -16,3 +16,16 @@ html {
   padding: 0;
   outline: none;
 }
+
+.page-container {
+  margin: 20px;
+}
+
+.ngx-gallery {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.fa.ngx-gallery-icon-content::before {
+  font: normal normal normal 14px/1 FontAwesome;
+}

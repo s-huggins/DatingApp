@@ -1,0 +1,107 @@
+h1 {
+  color: teal;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  /* grid-gap: 10px; */
+}
+
+.profile-side {
+  /* border: 1px solid blue; */
+  /* border-right: 1px solid teal;
+  border-top-right-radius: 1px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-image {
+  align-self: center;
+  max-width: 150px;
+  border: 1px solid teal;
+}
+
+.profile-side ul {
+  list-style-type: none;
+  padding: 20px 0px;
+  margin: 0;
+}
+
+.detail-key {
+  font-weight: bold;
+  display: block;
+}
+
+.profile-side-actions {
+  display: flex-inline;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-side-actions button {
+  background-color: teal;
+  padding: 5px;
+  margin: 0px 5px;
+  border-radius: 2px;
+  border: none;
+  color: white;
+}
+
+.profile-main {
+  /* border: 1px solid red; */
+  overflow: hidden;
+}
+
+.tab-header {
+  display: inline-flex;
+  list-style-type: none;
+  /* border-bottom: 1px solid teal; */
+  position: relative;
+}
+
+.tab-header::after {
+  position: absolute;
+  content: "";
+  /* left: 0; */
+  bottom: 0;
+  right: -100vw;
+  width: 100vw;
+  border-bottom: 1px solid teal;
+}
+
+.tab {
+  /* border-bottom-right-radius: 4px; */
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid teal;
+}
+
+.tab-active {
+  color: teal;
+
+  border-left: 1px solid teal;
+  border-top: 1px solid teal;
+  border-right: 1px solid teal;
+  border-bottom: transparent;
+
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.tab-body {
+  padding: 15px;
+}
+
+.detail-header {
+  color: teal;
+  font-weight: normal;
+  font-size: 1.1rem;
+}
+
+.detail-text {
+  padding: 10px;
+}

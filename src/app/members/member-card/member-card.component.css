@@ -1,0 +1,78 @@
+.member-card {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  /* height: 250px; */
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 75% 1fr 1fr;
+  /* justify-content: center; */
+  justify-items: center;
+  /* align-items: center; */
+}
+
+.member-image-container {
+  overflow: hidden;
+  margin-bottom: 10px;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.member-image {
+  width: 100%;
+  transition: all 500ms ease-in-out;
+}
+
+.member-card:hover .member-image {
+  transform: scale(1.15, 1.15);
+  opacity: 0.8;
+}
+
+.detail-person {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #3a3c41;
+  /* opacity: 0.9; */
+}
+
+.detail-location {
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+.action-icons-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 30px;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.member-card:hover .action-icons-container {
+  top: 78%;
+}
+
+.icon {
+  opacity: 0.7;
+}
+
+.action-icon-button {
+  background-color: teal;
+  font-size: 0.9rem;
+  border: none;
+  padding: 4px 8px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s ease-in-out;
+}
+
+.action-icon-button:hover {
+  transform: scale(1.15);
+}

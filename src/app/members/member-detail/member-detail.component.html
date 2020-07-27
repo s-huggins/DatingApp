@@ -1,0 +1,84 @@
+<div class="page-container">
+  <div class="profile">
+    <div class="profile-side">
+      <h1>{{ user.knownAs }}</h1>
+      <img [src]="user.photoUrl" [alt]="user.knownAs" class="profile-image" />
+      <div class="profile-info">
+        <ul>
+          <li>
+            <span class="detail-key">Location: </span>
+            <span>{{ user.city }}, {{ user.country }}</span>
+          </li>
+          <li>
+            <span class="detail-key">Age: </span> <span>{{ user.age }}</span>
+          </li>
+          <li>
+            <span class="detail-key">Last Active: </span>
+            <span>{{ user.lastActive }}</span>
+          </li>
+          <li>
+            <span class="detail-key">Member Since: </span>
+            <span>{{ user.created }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="profile-side-actions">
+        <button>Like</button>
+        <button>Message</button>
+      </div>
+    </div>
+    <div class="profile-main">
+      <ul class="tab-header">
+        <li
+          class="tab"
+          (click)="selectTab(1)"
+          [ngClass]="{ 'tab-active': activeTab === 1 }"
+        >
+          About {{ user.knownAs }}
+        </li>
+        <li
+          class="tab"
+          (click)="selectTab(2)"
+          [ngClass]="{ 'tab-active': activeTab === 2 }"
+        >
+          Interests
+        </li>
+        <li
+          class="tab"
+          (click)="selectTab(3)"
+          [ngClass]="{ 'tab-active': activeTab === 3 }"
+        >
+          Photos
+        </li>
+        <li
+          class="tab"
+          (click)="selectTab(4)"
+          [ngClass]="{ 'tab-active': activeTab === 4 }"
+        >
+          Messages
+        </li>
+      </ul>
+      <div class="tab-body">
+        <div class="tab-body-about" *ngIf="activeTab === 1">
+          <h2 class="detail-header">Description</h2>
+          <p class="detail-text">{{ user.introduction }}</p>
+          <h2 class="detail-header">Looking For</h2>
+          <p class="detail-text">{{ user.lookingFor }}</p>
+        </div>
+        <div class="tab-body-interests" *ngIf="activeTab === 2">
+          <h2 class="detail-header">Interests</h2>
+          <p class="detail-text">{{ user.interests }}</p>
+        </div>
+        <div class="tab-body-photos" *ngIf="activeTab === 3">
+          <ngx-gallery
+            [options]="galleryOptions"
+            [images]="galleryImages"
+            class="ngx-gallery"
+            id="ngx-gallery"
+          ></ngx-gallery>
+        </div>
+        <div class="tab-body-messages" *ngIf="activeTab === 4">messages</div>
+      </div>
+    </div>
+  </div>
+</div>
