@@ -1,0 +1,135 @@
+<div class="page-container">
+  <div class="page-heading">
+    <h1>Your Profile</h1>
+    <div class="alert alert--information" [hidden]="!editForm.dirty">
+      <p>
+        <strong class="alert-label">Information:</strong> You have made changes.
+        Any unsaved changes will be lost!
+      </p>
+    </div>
+  </div>
+  <div class="profile">
+    <div class="profile-side">
+      <h2>{{ user.knownAs }}</h2>
+      <img [src]="user.photoUrl" [alt]="user.knownAs" class="profile-image" />
+      <div class="profile-info">
+        <ul>
+          <li>
+            <span class="detail-key">Location: </span>
+            <span>{{ user.city }}, {{ user.country }}</span>
+          </li>
+          <li>
+            <span class="detail-key">Age: </span> <span>{{ user.age }}</span>
+          </li>
+          <li>
+            <span class="detail-key">Last Active: </span>
+            <span>{{ user.lastActive }}</span>
+          </li>
+          <li>
+            <span class="detail-key">Member Since: </span>
+            <span>{{ user.created }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="profile-side-actions">
+        <button class="btn" [disabled]="!editForm.dirty" form="editForm">
+          Save Changes
+        </button>
+      </div>
+    </div>
+    <div class="profile-main">
+      <ul class="tab-header">
+        <li
+          class="tab"
+          (click)="selectTab(1)"
+          [ngClass]="{ 'tab-active': activeTab === 1 }"
+        >
+          Edit Profile
+        </li>
+        <li
+          class="tab"
+          (click)="selectTab(2)"
+          [ngClass]="{ 'tab-active': activeTab === 2 }"
+        >
+          Edit Photos
+        </li>
+      </ul>
+      <div class="tab-body">
+        <form
+          class="tab-body-about"
+          [hidden]="activeTab !== 1"
+          #editForm="ngForm"
+          id="editForm"
+          (ngSubmit)="updateUser()"
+        >
+          <div>
+            <h2 class="detail-header">
+              <label for="introduction">Description</label>
+            </h2>
+            <textarea
+              id="introduction"
+              name="introduction"
+              rows="6"
+              [(ngModel)]="user.introduction"
+              class="detail-edit-area"
+            ></textarea>
+          </div>
+          <div>
+            <h2 class="detail-header">
+              <label for="lookingFor">Looking For</label>
+            </h2>
+            <textarea
+              id="lookingFor"
+              name="lookingFor"
+              rows="6"
+              [(ngModel)]="user.lookingFor"
+              class="detail-edit-area"
+            ></textarea>
+          </div>
+          <div>
+            <h2 class="detail-header">
+              <label for="interests">Interests</label>
+            </h2>
+            <textarea
+              id="interests"
+              name="interests"
+              rows="6"
+              [(ngModel)]="user.interests"
+              class="detail-edit-area"
+            ></textarea>
+          </div>
+          <div>
+            <h2 class="detail-header">Location</h2>
+            <div class="detail-edit-control-inline">
+              <label for="city" class="detail-edit-input-label">City: </label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                [(ngModel)]="user.city"
+                class="detail-edit-input detail-edit-input--inline"
+              />
+            </div>
+            <div class="detail-edit-control-inline">
+              <label for="country" class="detail-edit-input-label"
+                >Country:
+              </label>
+              <input
+                type="text"
+                id="country"
+                name="country"
+                [(ngModel)]="user.country"
+                class="detail-edit-input detail-edit-input--inline"
+              />
+            </div>
+          </div>
+        </form>
+
+        <div class="tab-body-interests" [hidden]="activeTab !== 2">
+          <h2 class="detail-header">Interests</h2>
+          <p class="detail-text">Edit photos will go here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

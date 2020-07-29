@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../_models/User';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +24,13 @@ export class UserService {
     return this.http
       .get<User>(this.baseUrl + `users/${id}`)
       .pipe(catchError(this.handleError));
+  }
+
+  updateUser(id: number, user: User): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http
+      .put(this.baseUrl + `users/${id}`, user, { headers })
+      .pipe(catchError((err) => this.handleError));
   }
 
   private handleError(error: any) {

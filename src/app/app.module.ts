@@ -17,6 +17,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { routes } from './routes';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
     MessagesComponent,
     MemberCardComponent,
     MemberDetailComponent,
+    MemberEditComponent,
   ],
   imports: [
     BrowserModule,
