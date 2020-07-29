@@ -40,7 +40,7 @@ namespace NetworkApp.API.Data
 
     public async Task<bool> SaveAll()
     {
-      return (await _context.SaveChangesAsync()) > 0;
+      return !_context.ChangeTracker.HasChanges() || (await _context.SaveChangesAsync()) > 0;
     }
   }
 }

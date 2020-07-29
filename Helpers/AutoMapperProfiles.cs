@@ -34,6 +34,8 @@ namespace NetworkApp.API.Helpers
         );
 
       CreateMap<Photo, PhotoForDetailDto>();
+
+      CreateMap<UserForUpdateDto, User>();
     }
   }
 }
