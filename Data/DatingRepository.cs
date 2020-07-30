@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NetworkApp.API.Models;
@@ -38,9 +39,21 @@ namespace NetworkApp.API.Data
       return users;
     }
 
+    public Task<Photo> GetPhoto(int id)
+    {
+      var photo = _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+      return photo;
+    }
+
     public async Task<bool> SaveAll()
     {
       return !_context.ChangeTracker.HasChanges() || (await _context.SaveChangesAsync()) > 0;
+    }
+
+    public async Task<Photo> GetMainPhotoForUser(int userId)
+    {
+      return await _context.Photos.Where(p => p.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
     }
   }
 }

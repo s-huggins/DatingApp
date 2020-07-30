@@ -24,6 +24,8 @@ namespace NetworkApp.API
 {
   public class Startup
   {
+    private readonly string DevelopmentPolicy = "DevelopmentPolicy";
+
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
@@ -38,12 +40,24 @@ namespace NetworkApp.API
       {
         ops.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
       });
-      services.AddCors();
-      services.AddAutoMapper(typeof(Startup));
+      services.AddCors(ops =>
+      {
+        ops.AddPolicy(name: DevelopmentPolicy, builder =>
+        {
+          builder
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+
+        });
+      });
+      // services.AddCors();
       services.AddDbContext<DataContext>(ops => ops.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
       services.AddTransient<Seed>();
       services.AddScoped<IAuthRepository, AuthRepository>();
       services.AddScoped<IDatingRepository, DatingRepository>();
+      services.AddAutoMapper(typeof(Startup));
+      services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(ops =>
         {
@@ -82,11 +96,14 @@ namespace NetworkApp.API
         });
       }
 
-      app.UseCors(ops => ops.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
-      app.UseHttpsRedirection();
+
+      // app.UseHttpsRedirection();
 
       app.UseRouting();
+
+      // app.UseCors(ops => ops.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+      app.UseCors(DevelopmentPolicy);
 
       app.UseAuthentication();
 
