@@ -66,7 +66,20 @@
 .nav-user {
   list-style-type: none;
   color: white;
-  cursor: pointer;
+  /* cursor: pointer; */
+  display: flex;
+  align-items: center;
+}
+
+.nav-user li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.nav-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
 }
 
 .caret-down {
@@ -78,6 +91,7 @@
 .nav-dropdown-toggler {
   position: relative;
   width: 150px;
+  cursor: pointer;
 }
 
 .nav-dropdown-toggler.dropdown-visible .nav-user-dropdown {
@@ -101,6 +115,7 @@
 .nav-user-dropdown {
   position: absolute;
   display: none;
+  /* display: block; */
   list-style-type: none;
   background-color: teal;
   width: 100%;
@@ -111,10 +126,19 @@
   z-index: 100;
 }
 
-.divider {
+.nav-user-dropdown li {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-user-dropdown .divider {
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   display: block;
+  height: 1px;
   width: 90%;
-  margin: 0 auto;
-  /* padding: 2px 0; */
+  /* margin: 0 auto; */
+  margin: 4px auto;
+  padding: 0;
+  /* padding: 0px 2px; */
 }

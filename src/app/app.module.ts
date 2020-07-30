@@ -18,6 +18,8 @@ import { routes } from './routes';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
     }),
     NgxGalleryModule,
     FontAwesomeModule,
+    FileUploadModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

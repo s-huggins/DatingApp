@@ -1,0 +1,103 @@
+.photo-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.photo-figure {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-figure-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.photo-figure button {
+  margin: 4px;
+  padding: 1px 5px;
+}
+
+.btn--trash {
+  background-color: rgba(255, 51, 0, 0.9);
+}
+
+.btn--disabled {
+  background-color: #555;
+  cursor: unset;
+}
+
+.photo-list img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 2px;
+  padding: 2px 3px;
+}
+
+.my-drop-zone {
+  border: dotted 3px lightgray;
+}
+.nv-file-over {
+  border: dotted 3px red;
+}
+
+input[type="file"] {
+  color: transparent;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.upload-actions {
+  flex-basis: 25%;
+  margin-right: 5%;
+}
+
+.upload-queue {
+  flex-basis: 70%;
+}
+
+.upload-queue .btn {
+  margin: 0 4px;
+}
+
+.progress-container {
+  margin: 15px 0;
+}
+
+.progress {
+  margin-top: 5px;
+}
+
+.progress-bar {
+  background-color: teal;
+  height: 15px;
+  border-radius: 4px;
+}
+
+.table th {
+  width: 50%;
+  text-align: left;
+}
+
+.table td {
+  width: 50%;
+  font-weight: normal;
+}
+
+.table td,
+th {
+  padding: 2px 10px;
+}
+
+.cell-file-size {
+  text-align: right;
+}

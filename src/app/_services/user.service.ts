@@ -33,6 +33,18 @@ export class UserService {
       .pipe(catchError((err) => this.handleError));
   }
 
+  setMainPhoto(userId: number, photoId: number): Observable<any> {
+    return this.http
+      .post(this.baseUrl + `users/${userId}/photos/${photoId}/setMain`, {})
+      .pipe(catchError(this.handleError));
+  }
+
+  deletePhoto(userId: number, photoId: number): Observable<any> {
+    return this.http
+      .delete(this.baseUrl + `users/${userId}/photos/${photoId}`)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     console.log(error);
     const applicationError = error?.headers?.get('Application-Error');

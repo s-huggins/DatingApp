@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../_models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,9 @@ export class AuthService {
   private baseUrl = 'http://localhost:5000/api/auth';
   userToken: string = null;
   decodedToken: any;
+  currentUser: User;
+  private photoUrl = new BehaviorSubject<string>('../../assets/user.png');
+  currentPhotoUrl$ = this.photoUrl.asObservable();
 
   get loggedIn(): boolean {
     return !this.jwtHelper.isTokenExpired();
@@ -18,10 +22,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
+  changeMemberPhoto(newPhotoUrl: string): void {
+    this.photoUrl.next(newPhotoUrl);
+    this.currentUser.photoUrl = newPhotoUrl;
+    localStorage.setItem('user', JSON.stringify(this.currentUser));
+  }
+
   login(model: any): Observable<{ token: string }> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http
-      .post<{ token: string }>(`${this.baseUrl}/login`, model, {
+      .post<{ token: string; user: any }>(`${this.baseUrl}/login`, model, {
         headers,
       })
       .pipe(
@@ -29,7 +39,10 @@ export class AuthService {
           if (res.token) {
             this.userToken = res.token;
             localStorage.setItem('token', res.token);
-            this.decodedToken = this.jwtHelper.decodeToken();
+            this.decodedToken = this.jwtHelper.decodeToken(); // AFTER setting token in local storage
+            localStorage.setItem('user', JSON.stringify(res.user));
+            this.currentUser = res.user;
+            this.changeMemberPhoto(this.currentUser.photoUrl);
           }
         }),
         catchError(this.handleError)
@@ -39,6 +52,8 @@ export class AuthService {
   logout(): void {
     this.userToken = null;
     localStorage.removeItem('token');
+    this.currentUser = null;
+    localStorage.removeItem('user');
   }
 
   register(model: any): Observable<any> {
@@ -49,7 +64,6 @@ export class AuthService {
   }
 
   private handleError(error: any) {
-    console.log(error);
     const applicationError = error?.headers?.get('Application-Error');
     if (applicationError) {
       return throwError(applicationError);

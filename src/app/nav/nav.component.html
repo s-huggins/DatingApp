@@ -59,6 +59,9 @@
     </button>
   </form>
   <ul class="nav-user" *ngIf="loggedIn">
+    <li>
+      <img [src]="photoUrl" class="nav-avatar" />
+    </li>
     <li class="nav-dropdown-toggler" appDropdown>
       {{ userName }}
       <span class="caret-down">▼</span>

@@ -11,7 +11,7 @@
   <div class="profile">
     <div class="profile-side">
       <h2>{{ user.knownAs }}</h2>
-      <img [src]="user.photoUrl" [alt]="user.knownAs" class="profile-image" />
+      <img [src]="photoUrl" [alt]="user.knownAs" class="profile-image" />
       <div class="profile-info">
         <ul>
           <li>
@@ -126,8 +126,11 @@
         </form>
 
         <div class="tab-body-interests" [hidden]="activeTab !== 2">
-          <h2 class="detail-header">Interests</h2>
-          <p class="detail-text">Edit photos will go here</p>
+          <h2 class="detail-header">Your Photos</h2>
+          <app-photo-editor
+            [photos]="user.photos"
+            (mainPhotoChanged)="updateMainPhoto($event)"
+          ></app-photo-editor>
         </div>
       </div>
     </div>
