@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetworkApp.API.Data;
 using NetworkApp.API.Dtos;
+using NetworkApp.API.Helpers;
 
 namespace NetworkApp.API.Controllers
 {
   [ApiController]
+  [ServiceFilter(typeof(LogUserActivity))]
   [Authorize]
   [Route("api/[controller]")]
   public class UsersController : ControllerBase
