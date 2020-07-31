@@ -2,7 +2,11 @@
   <div class="profile">
     <div class="profile-side">
       <h1>{{ user.knownAs }}</h1>
-      <img [src]="user.photoUrl" [alt]="user.knownAs" class="profile-image" />
+      <img
+        [src]="user.photoUrl || '../../../assets/user.png'"
+        [alt]="user.knownAs"
+        class="profile-image"
+      />
       <div class="profile-info">
         <ul>
           <li>

@@ -1,6 +1,10 @@
 <div class="member-card">
   <span class="member-image-container">
-    <img [src]="user.photoUrl" [alt]="user.knownAs" class="member-image" />
+    <img
+      [src]="user.photoUrl || '../../../assets/user.png'"
+      [alt]="user.knownAs"
+      class="member-image"
+    />
     <ul class="action-icons-container">
       <button class="action-icon-button" [routerLink]="['/members', user.id]">
         <fa-icon class="action-icon" [icon]="faUser"></fa-icon>

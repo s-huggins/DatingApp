@@ -1,33 +1,173 @@
 <div class="register-form">
-  <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+  <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
     <h2>Sign Up</h2>
     <hr />
-    <div>
-      <input
-        type="text"
-        placeholder="Username"
-        required
-        name="username"
-        [(ngModel)]="model.username"
-        class="control control-username"
-      />
-    </div>
-    <div>
-      <input
-        type="password"
-        placeholder="Password"
-        required
-        name="password"
-        [(ngModel)]="model.password"
-        class="control"
-      />
-    </div>
+    <div class="form-body">
+      <div class="form-block gender-controls">
+        <span class="i-am">I am:</span>
+        <label for="male">
+          <input type="radio" id="male" value="male" formControlName="gender" />
+          Male
+        </label>
+        <label for="female">
+          <input
+            type="radio"
+            id="female"
+            value="female"
+            formControlName="gender"
+          />
+          Female
+        </label>
+      </div>
+      <div class="form-block">
+        <input
+          type="text"
+          placeholder="Username"
+          formControlName="username"
+          class="control control-username"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('username').hasError('required') &&
+            registerForm.get('username').touched
+          "
+          >Username is required</span
+        >
+      </div>
+      <div class="form-block">
+        <input
+          type="text"
+          placeholder="Name"
+          formControlName="knownAs"
+          class="control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('knownAs').hasError('required') &&
+            registerForm.get('knownAs').touched
+          "
+          >Name is required</span
+        >
+      </div>
+      <div class="form-block">
+        <input
+          type="text"
+          bsDatepicker
+          [bsConfig]="bsConfig"
+          placeholder="Date of birth (yyyy/mm/dd)"
+          formControlName="dateOfBirth"
+          class="control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('dateOfBirth').hasError('required') &&
+            registerForm.get('dateOfBirth').touched
+          "
+          >Date of birth is required</span
+        >
+      </div>
+      <div class="form-block">
+        <input
+          type="text"
+          placeholder="City"
+          formControlName="city"
+          class="control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('city').hasError('required') &&
+            registerForm.get('city').touched
+          "
+          >City is required</span
+        >
+      </div>
+      <div class="form-block">
+        <input
+          type="text"
+          placeholder="Country"
+          formControlName="country"
+          class="control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('country').hasError('required') &&
+            registerForm.get('country').touched
+          "
+          >Country is required</span
+        >
+      </div>
 
-    <div>
-      <button type="submit" class="btn">Register</button>
-      <button type="button" (click)="cancel()" class="btn btn-cancel">
-        Cancel
-      </button>
+      <div class="form-block">
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          class="control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('password').hasError('required') &&
+            registerForm.get('password').touched
+          "
+          >Password is required</span
+        >
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('password').hasError('minlength') &&
+            registerForm.get('password').touched
+          "
+          >Password must be at least 8 characters</span
+        >
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.get('password').hasError('maxlength') &&
+            registerForm.get('password').touched
+          "
+          >Password cannot exceed 16 characters</span
+        >
+      </div>
+      <div class="form-block">
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+          class="control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerForm.hasError('requireConfirm') &&
+            registerForm.get('confirmPassword').touched
+          "
+          >Please confirm your password</span
+        >
+        <span
+          class="help-block"
+          *ngIf="
+            !registerForm.hasError('requireConfirm') &&
+            registerForm.hasError('passwordMismatch') &&
+            registerForm.get('confirmPassword').touched
+          "
+          >Your passwords don't match</span
+        >
+      </div>
+
+      <div>
+        <button type="submit" class="btn" [disabled]="registerForm.invalid">
+          Register
+        </button>
+        <button type="button" (click)="cancel()" class="btn btn-cancel">
+          Cancel
+        </button>
+      </div>
     </div>
   </form>
 </div>

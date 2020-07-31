@@ -68,7 +68,7 @@ h1 {
   align-self: center;
   max-width: 150px;
   max-height: 150px;
-  border: 1px solid teal;
+  /* border: 1px solid teal; */
 }
 
 .profile-side ul {
@@ -96,6 +96,10 @@ h1 {
   border: none;
   color: white;
   cursor: pointer;
+}
+
+.btn[disabled] {
+  cursor: not-allowed;
 }
 
 .btn--clear {

@@ -42,7 +42,9 @@ export class AuthService {
             this.decodedToken = this.jwtHelper.decodeToken(); // AFTER setting token in local storage
             localStorage.setItem('user', JSON.stringify(res.user));
             this.currentUser = res.user;
-            this.changeMemberPhoto(this.currentUser.photoUrl);
+            this.changeMemberPhoto(
+              this.currentUser.photoUrl || '../../assets/user.png'
+            );
           }
         }),
         catchError(this.handleError)
@@ -56,10 +58,10 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
-  register(model: any): Observable<any> {
+  register(user: User): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http
-      .post(`${this.baseUrl}/register`, model, { headers })
+      .post(`${this.baseUrl}/register`, user, { headers })
       .pipe(catchError(this.handleError));
   }
 
