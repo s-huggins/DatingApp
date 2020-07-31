@@ -18,11 +18,11 @@
           </li>
           <li>
             <span class="detail-key">Last Active: </span>
-            <span>{{ user.lastActive }}</span>
+            <span>{{ user.lastActive | timeAgo }}</span>
           </li>
           <li>
             <span class="detail-key">Member Since: </span>
-            <span>{{ user.created }}</span>
+            <span>{{ user.created | date: "mediumDate" }}</span>
           </li>
         </ul>
       </div>
