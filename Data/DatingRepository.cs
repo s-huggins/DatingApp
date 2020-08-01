@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using NetworkApp.API.Helpers;
 using NetworkApp.API.Models;
 
 namespace NetworkApp.API.Data
@@ -32,11 +33,55 @@ namespace NetworkApp.API.Data
       return user;
     }
 
-    public async Task<IEnumerable<User>> GetUsers()
+    public async Task<PagedList<User>> GetUsers(UserParams userParams)
     {
-      var users = await _context.Users.Include(u => u.Photos).ToListAsync();
+      IQueryable<User> users = _context.Users.Include(u => u.Photos).OrderByDescending(u => u.LastActive);
 
-      return users;
+      users = users
+        .Where(u => u.Id != userParams.UserId)
+        .Where(u => u.Gender == userParams.Gender);
+
+      // applying ordering early is fine since it is preserved by
+      // later Where calls
+      if (!string.IsNullOrEmpty(userParams.OrderBy))
+      {
+        switch (userParams.OrderBy.ToLower())
+        {
+          case "created":
+            users = users.OrderByDescending(u => u.Created);
+            break;
+          default:
+            users = users.OrderByDescending(u => u.LastActive);
+            break;
+        }
+      }
+
+      // BROKEN IN EF CORE 3
+      // TODO: USE A STORED PROCEDURE AFTER MIGRATING AWAY FROM SQLITE
+      // if (userParams.MinAge != 18 || userParams.MaxAge != 99)
+      // {
+      //   users = users.Where(u =>
+      //     u.DateOfBirth.CalculateAge() >= userParams.MinAge
+      //     && u.DateOfBirth.CalculateAge() <= userParams.MaxAge
+      //   );
+      // }
+
+      // if non-default age specifiers
+      // KEEP THIS AT THE END OF PIPELINE WHILE IT EXECUTES LOCALLY
+      if (userParams.MinAge != 18 || userParams.MaxAge != 99)
+      {
+        ICollection<User> usersLocal = await users.ToListAsync();
+        usersLocal = usersLocal.Where(u =>
+          u.DateOfBirth.CalculateAge() >= userParams.MinAge
+          && u.DateOfBirth.CalculateAge() <= userParams.MaxAge
+        ).ToList();
+
+        return PagedList<User>.Create(usersLocal, userParams.PageNumber, userParams.PageSize);
+      }
+      else
+      {
+        return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+      }
     }
 
     public Task<Photo> GetPhoto(int id)
