@@ -1,5 +1,88 @@
 <div class="page-container">
+  <h2 class="match-count">Your matches - {{ pagination.totalItems }} found</h2>
+  <div class="filter-block">
+    <form novalidate #form="ngForm" (ngSubmit)="loadUsers()">
+      <div class="filter-group">
+        <label for="minAge">Age from</label>
+        <input
+          type="number"
+          name="minAge"
+          id="minAge"
+          class="age-input"
+          [(ngModel)]="userParams.minAge"
+        />
+      </div>
+      <div class="filter-group">
+        <label for="maxAge">Age to</label>
+        <input
+          type="number"
+          name="maxAge"
+          id="maxAge"
+          class="age-input"
+          [(ngModel)]="userParams.maxAge"
+        />
+      </div>
+      <div class="filter-group">
+        <label for="gender">Show: </label>
+        <select
+          name="gender"
+          id="gender"
+          [(ngModel)]="userParams.gender"
+          class="gender-select"
+        >
+          <option *ngFor="let gender of genderList" [value]="gender.value">
+            {{ gender.display }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group filter-buttons">
+        <button type="submit" class="btn">Apply filters</button>
+        <button type="button" class="btn" (click)="resetFilters()">
+          Reset filters
+        </button>
+      </div>
+      <div class="filter-group order-buttons">
+        <span>Order by: </span>
+
+        <button
+          class="btn"
+          [ngClass]="{ 'btn-active': userParams.orderBy === 'lastActive' }"
+          name="orderBy"
+          [(ngModel)]="userParams.orderBy"
+          btnRadio="lastActive"
+          (click)="loadUsers()"
+        >
+          Last active
+        </button>
+        <button
+          class="btn"
+          [ngClass]="{ 'btn-active': userParams.orderBy === 'created' }"
+          name="orderBy"
+          [(ngModel)]="userParams.orderBy"
+          btnRadio="created"
+          (click)="loadUsers()"
+        >
+          Newest members
+        </button>
+      </div>
+    </form>
+  </div>
   <div class="member-list">
     <app-member-card *ngFor="let user of users" [user]="user"></app-member-card>
+  </div>
+  <div class="pagination-container">
+    <pagination
+      [boundaryLinks]="true"
+      [totalItems]="pagination.totalItems"
+      [itemsPerPage]="pagination.itemsPerPage"
+      [(ngModel)]="pagination.currentPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
   </div>
 </div>

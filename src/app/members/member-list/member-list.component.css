@@ -7,3 +7,48 @@
   grid-template-rows: repeat(auto-fill, minmax(min-content, 200px));
   grid-gap: 20px;
 }
+
+.match-count {
+  text-align: center;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.filter-block form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 15px;
+}
+
+.filter-block form label {
+  margin-right: 10px;
+}
+
+.filter-group {
+  margin: 0 10px;
+}
+
+.age-input {
+  width: 50px;
+  padding: 2px 5px;
+}
+
+.gender-select {
+  padding: 2px 5px;
+}
+
+.filter-buttons .btn {
+  margin: 0 5px;
+}
+.order-buttons .btn {
+  margin: 0 5px;
+}
+
+.btn-active {
+  background-color: rgb(0, 87, 87);
+}

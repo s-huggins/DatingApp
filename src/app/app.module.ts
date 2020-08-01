@@ -23,6 +23,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { FileUploadModule } from 'ng2-file-upload';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimeAgoFixPipe } from './_pipes/TimeAgoFixPipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { TimeAgoFixPipe } from './_pipes/TimeAgoFixPipe';
     FontAwesomeModule,
     FileUploadModule,
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

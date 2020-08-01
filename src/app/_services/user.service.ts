@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../_models/User';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
+import { PaginatedResult } from '../_models/Pagination';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,42 @@ export class UserService {
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
-  getUsers(): Observable<User[]> {
+  getUsers(
+    page?: number,
+    itemsPerPage?: number,
+    userParams?: any
+  ): Observable<PaginatedResult<User[]>> {
+    const paginatedResult = new PaginatedResult<User[]>();
+    let queryString = '?';
+
+    if (page != null && itemsPerPage != null) {
+      queryString += `pageNumber=${page}&pageSize=${itemsPerPage}&`;
+    }
+
+    if (userParams != null) {
+      const { minAge, maxAge, gender, orderBy } = userParams;
+      // queryString += queryString.length > 1 ? '&' : '';
+      queryString += `minAge=${minAge}&maxAge=${maxAge}&gender=${gender}&orderBy=${orderBy}&`;
+    }
+
     return this.http
-      .get<User[]>(this.baseUrl + 'users')
-      .pipe(catchError(this.handleError));
+      .get<User[]>(this.baseUrl + 'users' + queryString, {
+        observe: 'response',
+      })
+      .pipe(
+        map((response: HttpResponse<User[]>) => {
+          paginatedResult.result = response.body;
+
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
+          }
+
+          return paginatedResult;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   getUser(id: number): Observable<User> {
