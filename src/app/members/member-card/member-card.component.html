@@ -10,7 +10,11 @@
         <fa-icon class="action-icon" [icon]="faUser"></fa-icon>
       </button>
       <button class="action-icon-button">
-        <fa-icon class="action-icon" [icon]="faHeart"></fa-icon>
+        <fa-icon
+          class="action-icon"
+          [icon]="faHeart"
+          (click)="sendLike(user.id)"
+        ></fa-icon>
       </button>
       <button class="action-icon-button">
         <fa-icon class="action-icon" [icon]="faEnvelope"></fa-icon>

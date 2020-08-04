@@ -1,0 +1,23 @@
+.member-list {
+  margin: 0 20px;
+  display: grid;
+  /* width: 90%; */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  /* grid-template-rows: repeat(auto-fill, minmax(min-content, 200px)); */
+  grid-template-rows: repeat(auto-fill, minmax(min-content, 200px));
+  grid-gap: 20px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+h2 {
+  margin: 10px 0;
+}
+
+.btn {
+  margin: 0 5px;
+}

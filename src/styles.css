@@ -91,8 +91,7 @@ h1 {
 .btn {
   background-color: teal;
   padding: 5px 10px;
-  /* margin: 0px 5px; */
-  border-radius: 2px;
+  border-radius: 3px;
   border: none;
   color: white;
   cursor: pointer;
@@ -106,6 +105,10 @@ h1 {
   border: none;
   background-color: transparent;
   cursor: pointer;
+}
+
+.btn--inline {
+  margin: 0 5px;
 }
 
 .profile-main {
@@ -215,9 +218,6 @@ h1 {
 .alert--information {
   background-color: rgb(151, 223, 252);
   color: rgba(0, 55, 94, 0.85);
-}
-
-.tab-body-about {
 }
 
 /* BOOTSTRAP PAGINATION */
