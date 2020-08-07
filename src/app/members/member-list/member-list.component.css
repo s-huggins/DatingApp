@@ -12,11 +12,11 @@
   text-align: center;
 }
 
-.pagination-container {
+/* .pagination-container {
   display: flex;
   justify-content: center;
   margin-top: 30px;
-}
+} */
 
 .filter-block form {
   display: flex;
@@ -47,8 +47,4 @@
 }
 .order-buttons .btn {
   margin: 0 5px;
-}
-
-.btn-active {
-  background-color: rgb(0, 87, 87);
 }

@@ -16,7 +16,11 @@
           (click)="sendLike(user.id)"
         ></fa-icon>
       </button>
-      <button class="action-icon-button">
+      <button
+        class="action-icon-button"
+        [routerLink]="['/members', user.id]"
+        [queryParams]="{ tab: 4 }"
+      >
         <fa-icon class="action-icon" [icon]="faEnvelope"></fa-icon>
       </button>
     </ul>

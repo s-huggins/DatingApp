@@ -1,1 +1,94 @@
-<p>messages works!</p>
+<div class="page-container">
+  <div class="btn-group">
+    <button
+      class="btn btn--inline"
+      [ngClass]="{ 'btn--active': messageContainer === 'Unread' }"
+      [(ngModel)]="messageContainer"
+      btnRadio="Unread"
+      (click)="loadMessages()"
+    >
+      <fa-icon class="icon" [icon]="faEnvelope"></fa-icon> Unread
+    </button>
+    <button
+      class="btn btn--inline"
+      [ngClass]="{ 'btn--active': messageContainer === 'Inbox' }"
+      [(ngModel)]="messageContainer"
+      btnRadio="Inbox"
+      (click)="loadMessages()"
+    >
+      <fa-icon class="icon" [icon]="faEnvelopeOpen"></fa-icon> Inbox
+    </button>
+    <button
+      class="btn btn--inline"
+      [ngClass]="{ 'btn--active': messageContainer === 'Outbox' }"
+      [(ngModel)]="messageContainer"
+      btnRadio="Outbox"
+      (click)="loadMessages()"
+    >
+      <fa-icon class="icon" [icon]="faPaperPlane"></fa-icon> Outbox
+    </button>
+  </div>
+  <div *ngIf="messages.length === 0">
+    <h3>No messages</h3>
+  </div>
+
+  <div *ngIf="messages.length > 0">
+    <table style="cursor: pointer;">
+      <tr class="table-header">
+        <th style="width: 40%;">Message</th>
+        <th style="width: 20%;">
+          {{ messageContainer === "Outbox" ? "To" : "From" }}
+        </th>
+        <th style="width: 20%;">
+          {{ messageContainer === "Outbox" ? "Sent" : "Received" }}
+        </th>
+        <th style="width: 20%;"></th>
+      </tr>
+      <tr
+        *ngFor="let message of messages"
+        [routerLink]="[
+          '/members',
+          messageContainer == 'Outbox' ? message.recipientId : message.senderId
+        ]"
+        [queryParams]="{ tab: 4 }"
+        class="table-row"
+      >
+        <td>{{ message.content }}</td>
+        <td>
+          <div class="from-to" *ngIf="messageContainer !== 'Outbox'">
+            <img [src]="message.senderPhotoUrl" class="message-avatar" />
+            <strong>{{ message.senderKnownAs }}</strong>
+          </div>
+          <div class="from-to" *ngIf="messageContainer === 'Outbox'">
+            <img [src]="message.recipientPhotoUrl" class="message-avatar" />
+            <strong>{{ message.recipientKnownAs }}</strong>
+          </div>
+        </td>
+        <td>{{ message.dateSent | timeAgo }}</td>
+        <td>
+          <button
+            class="btn btn-danger"
+            (click)="$event.stopPropagation()"
+            (click)="deleteMessage(message.id)"
+          >
+            <fa-icon class="icon" [icon]="faTrashAlt"></fa-icon> Delete
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="pagination-container">
+    <pagination
+      [boundaryLinks]="true"
+      [totalItems]="pagination.totalItems"
+      [itemsPerPage]="pagination.itemsPerPage"
+      [(ngModel)]="pagination.currentPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
+</div>

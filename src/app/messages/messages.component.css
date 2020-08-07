@@ -1,0 +1,44 @@
+.message-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+table {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+  text-align: left;
+}
+
+.from-to {
+  display: inline-flex;
+  align-items: center;
+}
+
+.message-avatar {
+  margin-right: 10px;
+}
+
+tr:hover {
+  background-color: #eee;
+}
+
+.table-header {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  padding: 2px 10px;
+}
+
+td {
+  padding: 10px;
+}

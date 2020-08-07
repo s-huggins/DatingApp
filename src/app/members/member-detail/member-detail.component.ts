@@ -38,6 +38,11 @@ export class MemberDetailComponent implements OnInit {
       (err) => {}
     );
 
+    this.route.queryParams.subscribe((params) => {
+      const tabNum = +params['tab'];
+      if ([1, 2, 3, 4].includes(tabNum)) this.selectTab(tabNum);
+    });
+
     this.galleryOptions = [
       {
         width: '500px',

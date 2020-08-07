@@ -47,7 +47,7 @@
 
         <button
           class="btn"
-          [ngClass]="{ 'btn-active': userParams.orderBy === 'lastActive' }"
+          [ngClass]="{ 'btn--active': userParams.orderBy === 'lastActive' }"
           name="orderBy"
           [(ngModel)]="userParams.orderBy"
           btnRadio="lastActive"
@@ -57,7 +57,7 @@
         </button>
         <button
           class="btn"
-          [ngClass]="{ 'btn-active': userParams.orderBy === 'created' }"
+          [ngClass]="{ 'btn--active': userParams.orderBy === 'created' }"
           name="orderBy"
           [(ngModel)]="userParams.orderBy"
           btnRadio="created"

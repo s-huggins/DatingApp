@@ -28,7 +28,7 @@
       </div>
       <div class="profile-side-actions">
         <button class="btn btn--inline">Like</button>
-        <button class="btn btn--inline">Message</button>
+        <button class="btn btn--inline" (click)="selectTab(4)">Message</button>
       </div>
     </div>
     <div class="profile-main">
@@ -81,7 +81,9 @@
             id="ngx-gallery"
           ></ngx-gallery>
         </div>
-        <div class="tab-body-messages" *ngIf="activeTab === 4">messages</div>
+        <div class="tab-body-messages" *ngIf="activeTab === 4">
+          <app-member-messages [userId]="user.id"></app-member-messages>
+        </div>
       </div>
     </div>
   </div>

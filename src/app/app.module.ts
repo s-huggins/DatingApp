@@ -25,6 +25,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimeAgoFixPipe } from './_pipes/TimeAgoFixPipe';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     MemberEditComponent,
     PhotoEditorComponent,
     TimeAgoFixPipe,
+    MemberMessagesComponent,
   ],
   imports: [
     BrowserModule,

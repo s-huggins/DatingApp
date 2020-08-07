@@ -1,0 +1,73 @@
+<div class="chat-container">
+  <div *ngIf="messages?.length === 0">
+    <p>No messages.</p>
+  </div>
+  <ul class="chat">
+    <li *ngFor="let message of messages">
+      <!-- To me -->
+      <div
+        *ngIf="message.senderId === userId"
+        class="message-received-container"
+      >
+        <img
+          [src]="message.senderPhotoUrl"
+          [alt]="message.senderKnownAs"
+          class="message-avatar"
+        />
+        <div class="chat-body">
+          <div class="message-header">
+            <strong>{{ message.senderKnownAs }}</strong>
+            <span class="message-time">
+              <fa-icon class="icon" [icon]="faClock"></fa-icon>
+              {{ message.dateSent | timeAgo }}
+            </span>
+          </div>
+          <p class="message-content">
+            {{ message.content }}
+          </p>
+        </div>
+      </div>
+      <!-- To them -->
+      <div *ngIf="message.senderId !== userId" class="message-sent-container">
+        <div class="chat-body">
+          <div class="message-header">
+            <span>
+              <span class="message-time">
+                <fa-icon class="icon" [icon]="faClock"></fa-icon>
+                {{ message.dateSent | timeAgo }}
+              </span>
+              <span *ngIf="!message.isRead" class="status-unread"
+                >(Unread)</span
+              >
+              <span *ngIf="message.isRead" class="status-read"
+                >(Read {{ message.dateRead | timeAgo }})</span
+              >
+            </span>
+            <strong>{{ message.senderKnownAs }}</strong>
+          </div>
+          <p class="message-content">
+            {{ message.content }}
+          </p>
+        </div>
+        <img
+          [src]="message.senderPhotoUrl"
+          [alt]="message.senderKnownAs"
+          class="message-avatar message-avatar--right"
+        />
+      </div>
+    </li>
+  </ul>
+  <div class="chat-input-container">
+    <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()">
+      <input
+        type="text"
+        placeholder="Send a private message"
+        class="message-input"
+        required
+        name="content"
+        [(ngModel)]="newMessage.content"
+      />
+      <button class="btn" [disabled]="messageForm.invalid">Send</button>
+    </form>
+  </div>
+</div>
