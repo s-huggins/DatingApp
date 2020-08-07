@@ -42,6 +42,17 @@ namespace NetworkApp.API.Helpers
       CreateMap<Photo, PhotoForReturnDto>();
 
       CreateMap<UserForRegisterDto, User>();
+
+      CreateMap<MessageForCreationDto, Message>().ReverseMap();
+
+      CreateMap<Message, MessageForReturnDto>()
+        .ForMember(m => m.SenderPhotoUrl, ops => ops.MapFrom(
+          m => m.Sender.Photos.FirstOrDefault(p => p.IsMain).Url
+        ))
+        .ForMember(m => m.RecipientPhotoUrl, ops => ops.MapFrom(
+          m => m.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url
+        ));
+
     }
   }
 }
